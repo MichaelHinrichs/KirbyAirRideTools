@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Text.RegularExpressions;
 using System.Globalization;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace KirbyAirRideTools
@@ -39,9 +39,9 @@ namespace KirbyAirRideTools
             uint MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
             //Vertex List
-            List<float> VtxXList = new List<float>();
-            List<float> VtxYList = new List<float>();
-            List<float> VtxZList = new List<float>();
+            List<float> VtxXList = new();
+            List<float> VtxYList = new();
+            List<float> VtxZList = new();
 
             fileIn.BaseStream.Seek(VtxOffset, SeekOrigin.Begin);
             for (int i = 0; i < VtxNum; i++)
@@ -52,9 +52,9 @@ namespace KirbyAirRideTools
             }
 
             //Triangle List
-            List<uint> Tri1List = new List<uint>();
-            List<uint> Tri2List = new List<uint>();
-            List<uint> Tri3List = new List<uint>();
+            List<uint> Tri1List = new();
+            List<uint> Tri2List = new();
+            List<uint> Tri3List = new();
 
             fileIn.BaseStream.Seek(TriOffset, SeekOrigin.Begin);
             for (int i = 0; i < TriNum; i++)
@@ -144,9 +144,9 @@ namespace KirbyAirRideTools
             uint VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             fileIn.ReadUInt32();
             fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
-            List<float> VtxXList = new List<float>();
-            List<float> VtxYList = new List<float>();
-            List<float> VtxZList = new List<float>();
+            List<float> VtxXList = new();
+            List<float> VtxYList = new();
+            List<float> VtxZList = new();
             for (int i = 0; i < VtxNum; i++)
             {
                 VtxXList.Add(BitConverter.ToSingle(fileIn.ReadBytes(4).Reverse(), 0));
@@ -282,11 +282,11 @@ namespace KirbyAirRideTools
                 return -1;//Error
 
             XNamespace XmlColladaNS = @"http://www.collada.org/2005/11/COLLADASchema";
-            XElement colladaNode = new XElement(XmlColladaNS + "COLLADA");
+            XElement colladaNode = new(XmlColladaNS + "COLLADA");
             colladaNode.Add(new XAttribute("version", "1.4.1"));
 
-            XElement asset_node = new XElement("asset");
-            XElement contributor_node = new XElement("contributor",
+            XElement asset_node = new("asset");
+            XElement contributor_node = new("contributor",
                 new XElement("author",
                     new XText("HAL Laboratory")),
                 new XElement("authoring_tool",
@@ -299,16 +299,16 @@ namespace KirbyAirRideTools
                 new XElement("up_axis", new XText("Y_UP"))
                 );
 
-            XElement library_cameras_node = new XElement("library_cameras");
-            XElement library_lights_node = new XElement("library_lights");
-            XElement library_images_node = new XElement("library_images");
-            XElement library_effects_node = new XElement("library_effects");
-            XElement library_materials_node = new XElement("library_materials");
-            XElement library_geometries_node = new XElement("library_geometries");
-            XElement library_visual_scenes_node = new XElement("library_visual_scenes");
+            XElement library_cameras_node = new("library_cameras");
+            XElement library_lights_node = new("library_lights");
+            XElement library_images_node = new("library_images");
+            XElement library_effects_node = new("library_effects");
+            XElement library_materials_node = new("library_materials");
+            XElement library_geometries_node = new("library_geometries");
+            XElement library_visual_scenes_node = new("library_visual_scenes");
 
-            XElement visual_scene = new XElement("visual_scene", new XAttribute("id", "Scene"), new XAttribute("name", "Scene"));
-            XElement scene_node = new XElement("scene", new XElement("instance_visual_scene", new XAttribute("url", "#Scene")));
+            XElement visual_scene = new("visual_scene", new XAttribute("id", "Scene"), new XAttribute("name", "Scene"));
+            XElement scene_node = new("scene", new XElement("instance_visual_scene", new XAttribute("url", "#Scene")));
 
             uint hdrsize = 0x20;
             //Collision Node
@@ -325,9 +325,9 @@ namespace KirbyAirRideTools
             uint MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
             //Vertex List
-            List<float> VtxXList = new List<float>();
-            List<float> VtxYList = new List<float>();
-            List<float> VtxZList = new List<float>();
+            List<float> VtxXList = new();
+            List<float> VtxYList = new();
+            List<float> VtxZList = new();
 
             fileIn.BaseStream.Seek(VtxOffset, SeekOrigin.Begin);
             for (int i = 0; i < VtxNum; i++)
@@ -338,9 +338,9 @@ namespace KirbyAirRideTools
             }
 
             //Triangle List
-            List<uint> Tri1List = new List<uint>();
-            List<uint> Tri2List = new List<uint>();
-            List<uint> Tri3List = new List<uint>();
+            List<uint> Tri1List = new();
+            List<uint> Tri2List = new();
+            List<uint> Tri3List = new();
 
             fileIn.BaseStream.Seek(TriOffset, SeekOrigin.Begin);
             for (int i = 0; i < TriNum; i++)
@@ -353,7 +353,7 @@ namespace KirbyAirRideTools
             }
 
             fileIn.BaseStream.Seek(MdlOffset, SeekOrigin.Begin);
-            XElement collision_scene_node = new XElement("node", new XAttribute("id", "Collision"), new XAttribute("name", "Collision Data"), new XAttribute("type", "NODE"));
+            XElement collision_scene_node = new("node", new XAttribute("id", "Collision"), new XAttribute("name", "Collision Data"), new XAttribute("type", "NODE"));
             for (int i = 0; i < MdlNum; i++)
             {
                 int JointID = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
@@ -365,15 +365,15 @@ namespace KirbyAirRideTools
                 uint Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
                 //--Geometry Data
-                XElement geometry_node = new XElement("geometry",
+                XElement geometry_node = new("geometry",
                     new XAttribute("id", "CollMesh" + i.ToString()),
                     new XAttribute("name", "CollisionMesh" + i.ToString()));
-                XElement mesh_node = new XElement("mesh");
+                XElement mesh_node = new("mesh");
 
-                XElement source_node = new XElement("source",
+                XElement source_node = new("source",
                     new XAttribute("id", "CollMesh" + i.ToString() + "-positions"));
 
-                XElement float_array_node = new XElement("float_array",
+                XElement float_array_node = new("float_array",
                     new XAttribute("id", "CollMesh" + i.ToString() + "-positions-array"),
                     new XAttribute("count", (VtxIDSize * 3).ToString()));
 
@@ -383,7 +383,7 @@ namespace KirbyAirRideTools
 
                 float_array_node.Add(new XText(float_array_data));
 
-                XElement technique_common_node = new XElement("technique_common",
+                XElement technique_common_node = new("technique_common",
                     new XElement("accessor",
                     new XAttribute("source", "#CollMesh" + i.ToString() + "-positions-array"),
                     new XAttribute("count", VtxIDSize.ToString()),
@@ -405,7 +405,7 @@ namespace KirbyAirRideTools
 
                 source_node.Add(float_array_node, technique_common_node);
 
-                XElement vertices_node = new XElement("vertices",
+                XElement vertices_node = new("vertices",
                     new XAttribute("id", "CollMesh" + i.ToString() + "-vertices"),
                         new XElement("input",
                             new XAttribute("semantic", "POSITION"),
@@ -413,7 +413,7 @@ namespace KirbyAirRideTools
                         )
                 );
 
-                XElement polylist_node = new XElement("polylist",
+                XElement polylist_node = new("polylist",
                     new XAttribute("count", TriIDSize.ToString()),
                         new XElement("input",
                             new XAttribute("semantic", "VERTEX"),
@@ -422,14 +422,14 @@ namespace KirbyAirRideTools
                         )
                 );
 
-                XElement vcount_node = new XElement("vcount");
+                XElement vcount_node = new("vcount");
                 string vcount = "";
                 for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
                     vcount += "3 ";
 
                 vcount_node.Add(new XText(vcount));
 
-                XElement p_node = new XElement("p");
+                XElement p_node = new("p");
                 string p = "";
                 for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
                     p += Tri1List[(int)j] - VtxIDMin + " " + (Tri2List[(int)j] - VtxIDMin) + " " + (Tri3List[(int)j] - VtxIDMin) + " ";
@@ -444,11 +444,11 @@ namespace KirbyAirRideTools
                 library_geometries_node.Add(geometry_node);
 
                 //--Scene Data
-                XElement scene_model_node = new XElement("node",
+                XElement scene_model_node = new("node",
                     new XAttribute("id", "CollModel" + i.ToString()),
                     new XAttribute("name", "CollisionModel" + i.ToString()),
                     new XAttribute("type", "NODE"),
-                        new XElement("matrix", 
+                        new XElement("matrix",
                         new XAttribute("sid", "transform"),
                         new XText("1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1")
                         ),
