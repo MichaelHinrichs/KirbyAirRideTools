@@ -14,7 +14,7 @@ namespace KirbyAirRideTools
 
         private void ExportCollisionOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog
+            OpenFileDialog ofd = new()
             {
                 Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
                 Title = "Load DAT File...",
@@ -23,7 +23,7 @@ namespace KirbyAirRideTools
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog
+                SaveFileDialog sfd = new()
                 {
                     Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*",
                     Title = "Save as OBJ File..."
@@ -31,8 +31,8 @@ namespace KirbyAirRideTools
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    StreamWriter OBJfile = new StreamWriter(sfd.OpenFile());
-                    BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
+                    StreamWriter OBJfile = new(sfd.OpenFile());
+                    BinaryReader DATfile = new(ofd.OpenFile());
                     Export.InitOBJexport(OBJfile);
                     if ((Export.ExportCollisionOBJ(OBJfile, DATfile) | Export.ExportPathOBJ(OBJfile, DATfile)) == 0)
                         MessageBox.Show("Success");
@@ -47,7 +47,7 @@ namespace KirbyAirRideTools
 
         private void ExportPartitionOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog
+            OpenFileDialog ofd = new()
             {
                 Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
                 Title = "Load DAT File...",
@@ -56,7 +56,7 @@ namespace KirbyAirRideTools
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog
+                SaveFileDialog sfd = new()
                 {
                     Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*",
                     Title = "Save as OBJ File..."
@@ -64,8 +64,8 @@ namespace KirbyAirRideTools
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    StreamWriter OBJfile = new StreamWriter(sfd.OpenFile());
-                    BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
+                    StreamWriter OBJfile = new(sfd.OpenFile());
+                    BinaryReader DATfile = new(ofd.OpenFile());
                     Export.InitOBJexport(OBJfile);
                     if (Export.ExportPartitionOBJ(OBJfile, DATfile) == 0)
                         MessageBox.Show("Success");
@@ -80,7 +80,7 @@ namespace KirbyAirRideTools
 
         private void ExportCollisionDAEToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog
+            OpenFileDialog ofd = new()
             {
                 Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
                 Title = "Load DAT File...",
@@ -89,7 +89,7 @@ namespace KirbyAirRideTools
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog
+                SaveFileDialog sfd = new()
                 {
                     Filter = "Collada DAE (*.dae)|*.dae|All files|*.*",
                     Title = "Save as DAE File..."
@@ -97,14 +97,14 @@ namespace KirbyAirRideTools
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    XmlWriterSettings xmlWriterSettings = new XmlWriterSettings()
+                    XmlWriterSettings xmlWriterSettings = new()
                     {
                         Indent = true,
                         IndentChars = "\t",
                     };
 
                     XmlWriter DAEfile = XmlWriter.Create(sfd.OpenFile(), xmlWriterSettings);
-                    BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
+                    BinaryReader DATfile = new(ofd.OpenFile());
                     if (Export.DAEexport(DAEfile, DATfile) == 0)
                         MessageBox.Show("Success");
                     else
