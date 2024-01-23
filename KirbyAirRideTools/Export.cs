@@ -39,9 +39,9 @@ namespace KirbyAirRideTools
             uint MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
             //Vertex List
-            List<float> VtxXList = new();
-            List<float> VtxYList = new();
-            List<float> VtxZList = new();
+            List<float> VtxXList = [];
+            List<float> VtxYList = [];
+            List<float> VtxZList = [];
 
             fileIn.BaseStream.Seek(VtxOffset, SeekOrigin.Begin);
             for (int i = 0; i < VtxNum; i++)
@@ -52,9 +52,9 @@ namespace KirbyAirRideTools
             }
 
             //Triangle List
-            List<uint> Tri1List = new();
-            List<uint> Tri2List = new();
-            List<uint> Tri3List = new();
+            List<uint> Tri1List = [];
+            List<uint> Tri2List = [];
+            List<uint> Tri3List = [];
 
             fileIn.BaseStream.Seek(TriOffset, SeekOrigin.Begin);
             for (int i = 0; i < TriNum; i++)
@@ -144,9 +144,9 @@ namespace KirbyAirRideTools
             uint VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             fileIn.ReadUInt32();
             fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
-            List<float> VtxXList = new();
-            List<float> VtxYList = new();
-            List<float> VtxZList = new();
+            List<float> VtxXList = [];
+            List<float> VtxYList = [];
+            List<float> VtxZList = [];
             for (int i = 0; i < VtxNum; i++)
             {
                 VtxXList.Add(BitConverter.ToSingle(fileIn.ReadBytes(4).Reverse(), 0));
@@ -325,9 +325,9 @@ namespace KirbyAirRideTools
             uint MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
             //Vertex List
-            List<float> VtxXList = new();
-            List<float> VtxYList = new();
-            List<float> VtxZList = new();
+            List<float> VtxXList = [];
+            List<float> VtxYList = [];
+            List<float> VtxZList = [];
 
             fileIn.BaseStream.Seek(VtxOffset, SeekOrigin.Begin);
             for (int i = 0; i < VtxNum; i++)
@@ -338,9 +338,9 @@ namespace KirbyAirRideTools
             }
 
             //Triangle List
-            List<uint> Tri1List = new();
-            List<uint> Tri2List = new();
-            List<uint> Tri3List = new();
+            List<uint> Tri1List = [];
+            List<uint> Tri2List = [];
+            List<uint> Tri3List = [];
 
             fileIn.BaseStream.Seek(TriOffset, SeekOrigin.Begin);
             for (int i = 0; i < TriNum; i++)
